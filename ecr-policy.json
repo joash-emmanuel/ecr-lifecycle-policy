@@ -1,9 +1,26 @@
 {
   "rules": [
     {
-      "rulePriority": 1,
+      "rulePriority": 2,
+      "description":"for all the images with any tags",
       "selection": {
         "tagStatus": "any",
+        "countType": "imageCountMoreThan",
+        "countNumber": 3
+      },
+      "action": {
+        "type": "expire"
+      }
+    },
+    {
+      "rulePriority": 1,
+      "description": "for images with prod* and uat* tags",
+      "selection": {
+        "tagStatus": "tagged",
+        "tagPatternList": [
+          "prod*",
+          "uat*"
+        ],
         "countType": "imageCountMoreThan",
         "countNumber": 3
       },

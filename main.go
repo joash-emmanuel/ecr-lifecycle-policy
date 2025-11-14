@@ -14,7 +14,7 @@ import (
 
 var Account_id = ""
 var Repos_to_apply_policy = []string{}
-var Policy_filename string = "ecr-policy.json" // create a variable for the filename
+var Policy_filename string = "ecr-policy.json"
 
 func main() {
 	create_lifecycle_policy()

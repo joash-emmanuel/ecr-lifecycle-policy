@@ -12,7 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/ecr"
 )
 
-var Account_id = "711387104516"
+var Account_id = ""
 var Repos_to_apply_policy = []string{}
 var Policy_filename string = "ecr-policy.json" // create a variable for the filename
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -12,13 +13,14 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/ecr"
 )
 
-var Account_id = ""
+var Account_id = "711387104516"
 var Repos_to_apply_policy = []string{}
 var Policy_filename string = "ecr-policy.json"
 
 func main() {
-	create_lifecycle_policy()
+	// create_lifecycle_policy()
 	// get_repositories()
+	delete_lifecycle_policy()
 }
 
 func createsession() aws.Config {
@@ -100,4 +102,20 @@ func create_lifecycle_policy() {
 
 		log.Printf("Lifecycle policy successfully applied to %v repo", aws.ToString(ecr_create_lifecycle_output.RepositoryName))
 	}
+}
+
+func delete_lifecycle_policy() {
+
+	cfg := createsession()
+	ecr_client := ecr.NewFromConfig(cfg)
+	ecr_delete_lifecycle, err := ecr_client.DeleteLifecyclePolicy(context.TODO(), &ecr.DeleteLifecyclePolicyInput{
+		RegistryId:     aws.String(Account_id),
+		RepositoryName: aws.String("otp-service"),
+	})
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	fmt.Printf("Deleted lifecycle policy from %v repo\n", aws.ToString(ecr_delete_lifecycle.RepositoryName))
 }
